@@ -1,0 +1,30 @@
+[
+  {
+    "id": "gemma3:1b",
+    "title": "Мини",
+    "hint": "Для старых ноутбуков. Отвечает быстро, но знает немного.",
+    "sizeMb": 810,
+    "url": "https://huggingface.co/ggml-org/gemma-3-1b-it-GGUF/resolve/main/gemma-3-1b-it-Q4_K_M.gguf"
+  },
+  {
+    "id": "gemma3:4b",
+    "title": "Быстрая",
+    "hint": "Для обычных ПК и ноутбуков. Хватит для простых вопросов.",
+    "sizeMb": 2500,
+    "url": "https://huggingface.co/ggml-org/gemma-3-4b-it-GGUF/resolve/main/gemma-3-4b-it-Q4_K_M.gguf"
+  },
+  {
+    "id": "gemma3:12b",
+    "title": "Умная",
+    "hint": "Для игровых видеокарт от 10 ГБ. Отвечает заметно лучше.",
+    "sizeMb": 7300,
+    "url": "https://huggingface.co/ggml-org/gemma-3-12b-it-GGUF/resolve/main/gemma-3-12b-it-Q4_K_M.gguf"
+  },
+  {
+    "id": "gemma3:27b",
+    "title": "Максимум",
+    "hint": "Для топовых видеокарт от 20 ГБ. Ближе всего к облачным ИИ.",
+    "sizeMb": 16500,
+    "url": "https://huggingface.co/ggml-org/gemma-3-27b-it-GGUF/resolve/main/gemma-3-27b-it-Q4_K_M.gguf"
+  }
+]

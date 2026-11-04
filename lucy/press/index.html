@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lucy — пресс-кит</title>
+<meta name="description" content="Пресс-кит Lucy: Personal Voice Assistant от Kiyo Co. — описание, ролик, скриншоты, логотипы и ключ для обзора.">
+<meta property="og:title" content="Lucy — голосовой помощник для ПК">
+<meta property="og:description" content="Скажи «Люси» — и она сделает. Пресс-кит для блогеров и каналов.">
+<meta property="og:image" content="https://kiyo-co.github.io/lucy/press/media/promo-poster.jpg">
+<link rel="icon" href="../../favicon.png">
+<style>
+  :root {
+    --bg: #0b0d1a;
+    --panel: #12152a;
+    --line: #23284a;
+    --text: #e8eaf6;
+    --muted: #9aa0c3;
+    --blue: #4fa8ff;
+    --violet: #8b6cff;
+    --pink: #ff6fb5;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: radial-gradient(1200px 600px at 80% -10%, #2a1d55 0%, transparent 60%),
+                radial-gradient(900px 500px at -10% 10%, #12305a 0%, transparent 55%),
+                var(--bg);
+    color: var(--text);
+    overflow-wrap: anywhere;
+    font: 17px/1.65 "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+  }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 40px 20px 80px; }
+  a { color: var(--blue); }
+  header { display: flex; align-items: center; gap: 16px; margin-bottom: 36px; }
+  header img { width: 56px; height: 56px; border-radius: 16px; box-shadow: 0 8px 30px rgba(139,108,255,.35); }
+  .brand { font-size: 22px; font-weight: 700; }
+  .brand small { display: block; font-size: 14px; font-weight: 400; color: var(--muted); }
+  .hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: 32px; align-items: center; margin-bottom: 56px; }
+  h1 {
+    font-size: clamp(34px, 6vw, 52px); line-height: 1.1; margin: 0 0 14px;
+    background: linear-gradient(90deg, #fff 0%, #cfc6ff 60%, var(--pink) 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .lead { font-size: 19px; color: #d6d9f2; margin: 0 0 24px; }
+  .btns { display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border-radius: 999px;
+    font-weight: 600; text-decoration: none; color: #fff; border: 1px solid var(--line);
+    transition: transform .15s, box-shadow .15s;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn.main { background: linear-gradient(135deg, var(--blue), var(--violet) 55%, var(--pink)); border: 0;
+    box-shadow: 0 8px 30px rgba(139,108,255,.35); }
+  .btn.ghost { background: var(--panel); }
+  .btn.off { opacity: .55; pointer-events: none; }
+  .video { position: relative; border-radius: 18px; overflow: hidden; border: 1px solid var(--line);
+    box-shadow: 0 20px 60px rgba(0,0,0,.45); background: #000; }
+  .video video { display: block; width: 100%; height: auto; }
+  h2 { font-size: 26px; margin: 0 0 16px; }
+  section { margin-bottom: 52px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 18px 20px; }
+  .card b { display: block; margin-bottom: 4px; }
+  .card p { margin: 0; color: #c9cce6; font-size: 16px; }
+  .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+  .fact { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; }
+  .fact span { display: block; color: var(--muted); font-size: 14px; }
+  .fact strong { font-size: 18px; }
+  .shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 16px; }
+  .shots a { display: block; background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+    overflow: hidden; text-decoration: none; color: var(--muted); font-size: 14px; }
+  .shots img { display: block; width: 100%; height: 200px; object-fit: contain; background: #080a14; }
+  .shots a span { display: block; padding: 10px 14px; }
+  .logos { display: flex; flex-wrap: wrap; gap: 16px; }
+  .logo-card { display: flex; align-items: center; gap: 14px; background: var(--panel); border: 1px solid var(--line);
+    border-radius: 14px; padding: 14px 18px; text-decoration: none; color: var(--text); }
+  .logo-card img { width: 64px; height: 64px; border-radius: 12px; }
+  .logo-card small { display: block; color: var(--muted); }
+  .copy .card { position: relative; }
+  .copy pre { white-space: pre-wrap; margin: 0; font: inherit; color: #d6d9f2; }
+  .copy button {
+    position: absolute; top: 12px; right: 12px; border: 1px solid var(--line); background: #1a1e3a; color: var(--text);
+    border-radius: 999px; padding: 6px 14px; font: 600 14px/1 inherit; cursor: pointer;
+  }
+  .copy button.done { border-color: var(--violet); }
+  .copy .card { padding-top: 52px; }
+  .key { background: linear-gradient(135deg, rgba(79,168,255,.12), rgba(255,111,181,.10)); border: 1px solid var(--line);
+    border-radius: 18px; padding: 24px; }
+  .key ul { margin: 8px 0 18px; padding-left: 20px; color: #c9cce6; }
+  footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line); padding-top: 20px; }
+  @media (max-width: 760px) {
+    .hero { grid-template-columns: 1fr; }
+    .wrap { padding: 28px 16px 60px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img src="media/lucy-logo.png" alt="Логотип Lucy">
+    <div class="brand">Lucy <small>пресс-кит · Kiyo Co.</small></div>
+    <a href="../../" style="margin-left:auto;color:var(--muted);font-size:15px">Сайт Lucy</a>
+  </header>
+
+  <div class="hero">
+    <div>
+      <h1>Говоришь — Lucy делает</h1>
+      <p class="lead">Голосовой помощник для ПК, который слышит тебя даже в игре. Скажи «Люси» — и она откроет
+        программу, убавит звук, нажмёт клавиши или ответит через ИИ. Распознавание работает без интернета.</p>
+      <div class="btns">
+        <a class="btn main" href="mailto:kiyoco.studio@gmail.com?subject=%D0%9A%D0%BB%D1%8E%D1%87%20Lucy%20%D0%B4%D0%BB%D1%8F%20%D0%BE%D0%B1%D0%B7%D0%BE%D1%80%D0%B0&amp;body=%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82!%0A%0A%D0%9A%D0%B0%D0%BD%D0%B0%D0%BB%3A%20(%D1%81%D1%81%D1%8B%D0%BB%D0%BA%D0%B0)%0A%D0%93%D0%B4%D0%B5%3A%20YouTube%20%2F%20Telegram%20%2F%20VK%20%2F%20Twitch%0A%D0%9F%D0%BE%D0%B4%D0%BF%D0%B8%D1%81%D1%87%D0%B8%D0%BA%D0%BE%D0%B2%3A%20%0A%D0%A7%D1%82%D0%BE%20%D0%BF%D0%BB%D0%B0%D0%BD%D0%B8%D1%80%D1%83%D0%B5%D1%82%D0%B5%3A%20%D0%BE%D0%B1%D0%B7%D0%BE%D1%80%20%2F%20%D1%81%D1%82%D1%80%D0%B8%D0%BC%20%2F%20%D0%BF%D0%BE%D1%81%D1%82%20%2F%20%D1%80%D0%BE%D0%B7%D1%8B%D0%B3%D1%80%D1%8B%D1%88%0A">Попросить ключ</a>
+        <a class="btn ghost off" href="#" aria-disabled="true">Steam — скоро</a>
+        <a class="btn ghost" href="lucy-press-kit.zip" download>Скачать всё (zip)</a>
+      </div>
+    </div>
+    <div class="video">
+      <video controls preload="none" poster="media/promo-poster.jpg">
+        <source src="media/lucy-promo-ru.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+
+  <section>
+    <h2>Коротко</h2>
+    <div class="facts">
+      <div class="fact"><span>Название</span><strong>Lucy: Personal Voice Assistant</strong></div>
+      <div class="fact"><span>Разработчик</span><strong>Kiyo Co.</strong></div>
+      <div class="fact"><span>Где</span><strong>Steam, ранний доступ</strong></div>
+      <div class="fact"><span>Система</span><strong>Windows 10 / 11</strong></div>
+      <div class="fact"><span>Голосовые команды</span><strong>русский</strong></div>
+      <div class="fact"><span>Интерфейс</span><strong>русский, английский</strong></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Что умеет</h2>
+    <div class="grid">
+      <div class="card"><b>Скажи — и готово</b><p>«Люси, открой Дискорд», «громкость игры 30», «сделай скриншот», «таймер на 10 минут». Понимает живую речь, а не заученные фразы.</p></div>
+      <div class="card"><b>Слышит без интернета</b><p>Имя и команды распознаются прямо на ПК, голос никуда не уходит.</p></div>
+      <div class="card"><b>Для игр</b><p>Голосовые макросы с профилями: сказал «щит» — нажаты клавиши. Звук, окна, OBS и Discord — не сворачивая игру.</p></div>
+      <div class="card"><b>Сценарии</b><p>Цепочки из шагов: открыть, подождать, нажать, сменить звук, открыть ссылку — одной фразой.</p></div>
+      <div class="card"><b>ИИ на выбор</b><p>Облачные модели по своему ключу или локальный ИИ прямо на ПК.</p></div>
+      <div class="card"><b>Персонаж на экране</b><p>Живой персонаж реагирует на имя и показывает, что Lucy слушает, думает и отвечает.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Скриншоты</h2>
+    <div class="shots">
+      <a href="media/screen-command.png" target="_blank"><img src="media/screen-command.png" alt="Окно команды" loading="lazy"><span>Окно команды</span></a>
+      <a href="media/screen-characters.png" target="_blank"><img src="media/screen-characters.png" alt="Облики персонажа" loading="lazy"><span>Облики персонажа</span></a>
+      <a href="media/screen-scenarios.png" target="_blank"><img src="media/screen-scenarios.png" alt="Редактор сценариев" loading="lazy"><span>Редактор сценариев</span></a>
+      <a href="media/screen-widget.png" target="_blank"><img src="media/screen-widget.png" alt="Виджет на панели задач" loading="lazy"><span>Виджет на панели задач</span></a>
+    </div>
+  </section>
+
+  <section>
+    <h2>Логотипы</h2>
+    <div class="logos">
+      <a class="logo-card" href="media/lucy-logo.png" download><img src="media/lucy-logo.png" alt=""><div>Lucy<small>PNG, прозрачный фон</small></div></a>
+      <a class="logo-card" href="media/kiyoco-logo.png" download><img src="media/kiyoco-logo.png" alt=""><div>Kiyo Co.<small>PNG</small></div></a>
+    </div>
+  </section>
+
+  <section class="copy">
+    <h2>Готовый текст</h2>
+    <div class="card">
+      <button type="button" data-copy="about">Скопировать</button>
+      <pre id="about">Lucy — голосовой помощник для Windows от инди-студии Kiyo Co. Говоришь «Люси» — и она открывает программы, меняет громкость, управляет окнами, нажимает клавиши в игре или отвечает через ИИ.
+
+Главное отличие — слух работает прямо на компьютере, без интернета: голос никуда не уходит, а Lucy слышит тебя даже поверх игры и музыки. Для игроков есть голосовые макросы и сценарии, для остальных — быстрые команды, таймеры, погода и живой персонаж на экране.
+
+Lucy скоро выйдет в раннем доступе Steam.</pre>
+    </div>
+  </section>
+
+  <section id="key">
+    <div class="key">
+      <h2>Ключ для обзора или розыгрыша</h2>
+      <p style="margin:0">Даём ключи Steam блогерам, стримерам и каналам. Напишите на <a href="mailto:kiyoco.studio@gmail.com">kiyoco.studio@gmail.com</a>, укажите:</p>
+      <ul>
+        <li>ссылку на канал и где он (YouTube, Telegram, VK, Twitch);</li>
+        <li>что планируете: обзор, стрим, пост или розыгрыш для подписчиков.</li>
+      </ul>
+      <p style="margin:0 0 18px;color:var(--muted);font-size:15px">Отзыв в Steam взамен не нужен — честное мнение в любом виде.</p>
+      <a class="btn main" href="mailto:kiyoco.studio@gmail.com?subject=%D0%9A%D0%BB%D1%8E%D1%87%20Lucy%20%D0%B4%D0%BB%D1%8F%20%D0%BE%D0%B1%D0%B7%D0%BE%D1%80%D0%B0">Написать</a>
+    </div>
+  </section>
+
+  <footer><a href="../../">Сайт Lucy</a> · Kiyo Co. · <a href="mailto:kiyoco.studio@gmail.com">kiyoco.studio@gmail.com</a> · <a href="../../privacy/">Политика конфиденциальности</a></footer>
+</div>
+<script>
+  document.querySelectorAll('[data-copy]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var t = document.getElementById(b.dataset.copy).innerText;
+      navigator.clipboard.writeText(t).then(function () {
+        b.textContent = 'Скопировано'; b.classList.add('done');
+        setTimeout(function () { b.textContent = 'Скопировать'; b.classList.remove('done'); }, 1800);
+      });
+    });
+  });
+</script>
+</body>
+</html>
