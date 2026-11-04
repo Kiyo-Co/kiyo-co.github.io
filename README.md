@@ -1,4 +1,4 @@
-# Сайт Lucy — kiyo-co.github.io
+# Сайт Lucy — https://kiyo-co.github.io
 
 Публичный сайт голосового помощника Lucy от Kiyo Co.
 
