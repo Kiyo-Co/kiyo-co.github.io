@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lucy — voice assistant for your PC</title>
+<meta name="description" content="Lucy is a voice assistant for Windows by Kiyo Co. Say “Lucy” and she opens apps, turns down the volume, presses keys or answers with AI. Hears you offline.">
+<meta property="og:title" content="Lucy — voice assistant for your PC">
+<meta property="og:description" content="Hands full? Just say it. Hears you offline, works on top of games. Coming soon to Steam.">
+<meta property="og:image" content="https://kiyo-co.github.io/media/trailer-poster-en.jpg">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="../favicon.png">
+<link rel="alternate" hreflang="ru" href="https://kiyo-co.github.io/">
+<link rel="alternate" hreflang="en" href="https://kiyo-co.github.io/en/">
+<style>
+  :root {
+    --bg: #000;
+    --tile: #101012;
+    --tile2: #161618;
+    --line: #2a2a2e;
+    --text: #f5f5f7;
+    --muted: #86868b;
+    --dim: #6e6e73;
+    --grad: linear-gradient(90deg, #4fa8ff, #8b6cff 50%, #ff6fb5);
+    --ease: cubic-bezier(.2,.7,.2,1);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI Variable Text", "Segoe UI", sans-serif;
+    font-size: 1.0625rem; line-height: 1.5; letter-spacing: 0; font-optical-sizing: auto; -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { color: inherit; }
+  img, video { display: block; max-width: 100%; }
+
+  /* nav */
+  nav {
+    position: sticky; top: 0; z-index: 10; height: 52px;
+    display: flex; align-items: center; gap: 10px; padding: 0 max(16px, calc((100% - 1000px) / 2));
+    background: rgba(0,0,0,.72); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px);
+  }
+  nav::after { content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 16px; pointer-events: none;
+    background: linear-gradient(rgba(0,0,0,.45), transparent); }
+  @media (prefers-reduced-transparency: reduce) { nav { background: #000; backdrop-filter: none; -webkit-backdrop-filter: none; } }
+  @media (prefers-contrast: more) { nav { background: #000; border-bottom: 1px solid #fff; } nav::after { display: none; } }
+  nav img { width: 22px; height: 22px; }
+  nav .name { font-weight: 600; font-size: 1.0625rem; letter-spacing: -.01em; }
+  nav .links { margin-left: auto; align-items: center; display: flex; gap: 1.5rem; font-size: .8125rem; letter-spacing: .01em; }
+  nav .links a { text-decoration: none; color: #d2d2d7; }
+  nav .links a:hover { color: #fff; }
+  @media (max-width: 560px) { nav .hide-s { display: none; } }
+
+  .wrap { max-width: 1000px; margin: 0 auto; padding-inline: 16px; }
+  section { padding-block: 7.5rem; }
+  @media (max-width: 700px) { section { padding-block: 5rem; } }
+
+  /* type */
+  .eyebrow { font-size: 1.1875rem; font-weight: 600; color: var(--muted); margin: 0 0 8px; letter-spacing: -.01em; }
+  h1, h2, h3 { margin: 0; letter-spacing: -.035em; line-height: 1.05; font-weight: 700; }
+  h1 { font-size: clamp(3rem, 9vw, 6rem); }
+  h2 { font-size: clamp(2.25rem, 6vw, 4rem); }
+  h3 { font-size: clamp(1.5rem, 3vw, 2rem); letter-spacing: -.02em; line-height: 1.15; }
+  .lead { font-size: clamp(1.1875rem, 2.2vw, 1.5rem); line-height: 1.4; color: var(--muted); font-weight: 500; letter-spacing: -.01em; margin: 20px auto 0; max-width: 720px; }
+  .lead b { color: var(--text); font-weight: 600; }
+  .center { text-align: center; }
+  .grad { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+  /* buttons */
+  .btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 32px; }
+  .btn { display: inline-flex; align-items: center; gap: 6px; padding: 12px 24px; border-radius: 980px; font-size: 1.0625rem;
+         font-weight: 500; text-decoration: none; transition: background .2s, color .2s, transform 200ms ease-out; -webkit-tap-highlight-color: transparent; }
+  .btn:active { transform: scale(.97); transition: transform 100ms ease-out; }
+  .btn.off:active { transform: none; }
+  .btn.main { background: #f5f5f7; color: #000; }
+  .btn.main:hover { background: #fff; }
+  .btn.link { padding: 12px 6px; color: #2997ff; }
+  .btn.link:hover { text-decoration: underline; }
+  .btn.off { background: transparent; color: var(--muted); border: 1px solid var(--line); cursor: default; }
+
+  /* hero */
+  .hero { padding-block: 6rem 2.5rem; text-align: center; }
+  .hero .badge { display: inline-block; font-size: .8125rem; letter-spacing: .01em; color: #d2d2d7; border: 1px solid var(--line); border-radius: 980px; padding: 5px 14px; margin-bottom: 24px; }
+  .film { margin: 64px auto 0; max-width: 1000px; border-radius: 24px; overflow: hidden; background: #000; border: 1px solid rgba(255,255,255,.08);
+          box-shadow: 0 2.5rem 7.5rem rgba(139,108,255,.14), 0 1rem 2.5rem rgba(0,0,0,.6); }
+  .film video { width: 100%; aspect-ratio: 16 / 9; background: #000; }
+
+  /* phrases */
+  .phrases { margin-top: 56px; display: grid; gap: 4px; }
+  .phrase { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; padding: 22px 0; border-top: 1px solid var(--line); }
+  .phrase:last-child { border-bottom: 1px solid var(--line); }
+  .phrase q { quotes: none; font-size: clamp(1.375rem, 3.2vw, 2.125rem); font-weight: 600; letter-spacing: -.02em; }
+  .phrase span { color: var(--muted); font-size: 0.9375rem; text-align: right; flex-shrink: 0; max-width: 40%; }
+  @media (max-width: 640px) {
+    .phrase { flex-direction: column; gap: 4px; }
+    .phrase span { text-align: left; max-width: none; }
+  }
+
+  /* big feature rows */
+  .feature { text-align: center; }
+  .feature + .feature { margin-top: 140px; }
+  .feature .shot { margin: 48px auto 0; border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,.08); }
+  @media (max-width: 700px) { .feature + .feature { margin-top: 96px; } .feature .shot { border-radius: 12px; } }
+
+  /* stat */
+  .stat { font-size: clamp(4rem, 12vw, 8.75rem); font-weight: 800; letter-spacing: -.05em; line-height: 1; }
+
+  /* tiles */
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 20px; margin-top: 56px; }
+  .tile { background: var(--tile); border-radius: 24px; padding: 2.25rem 2rem; text-align: center; }
+  .tile .ic { width: 48px; height: 48px; margin: 0 auto 20px; display: grid; place-items: center; }
+  .tile .ic svg { width: 40px; height: 40px; fill: #f5f5f7; }
+  .tile h3 { font-size: 1.5rem; }
+  .tile p { color: var(--muted); margin: 10px 0 0; font-size: 1rem; }
+
+  /* specs */
+  .specs { margin-top: 48px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  @media (max-width: 640px) { .specs { grid-template-columns: 1fr; } }
+  .spec { background: var(--tile); border-radius: 24px; padding: 32px; }
+  .spec h3 { font-size: 1.3125rem; margin-bottom: 16px; }
+  .spec dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 10px 20px; font-size: 0.9375rem; }
+  .spec dt { color: var(--muted); }
+  .spec dd { margin: 0; }
+
+  /* faq */
+  .faq { max-width: 760px; margin: 48px auto 0; }
+  details { border-top: 1px solid var(--line); }
+  details:last-child { border-bottom: 1px solid var(--line); }
+  summary { cursor: pointer; list-style: none; padding: 24px 0; font-size: 1.3125rem; font-weight: 600; letter-spacing: -.01em; display: flex; justify-content: space-between; gap: 16px; }
+  summary::-webkit-details-marker { display: none; }
+  summary:active { opacity: .6; transition: opacity 100ms ease-out; }
+  summary::after { content: "+"; color: var(--muted); font-weight: 400; transition: transform .3s var(--ease); }
+  details[open] summary::after { transform: rotate(45deg); }
+  details p { margin: 0 0 24px; color: var(--muted); }
+  details a { color: #2997ff; }
+
+  /* cta */
+  section.cta { text-align: center; padding-block: 8.75rem; }
+  .cta img { width: 88px; height: 88px; margin: 0 auto 28px; }
+
+  footer { border-top: 1px solid var(--line); padding: 1.5rem max(16px, calc((100% - 1000px) / 2)); font-size: .75rem; letter-spacing: .01em; color: var(--dim);
+           display: flex; flex-wrap: wrap; gap: 8px 24px; }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--text); }
+
+  /* reveal */
+  .rv { opacity: 0; transform: translateY(32px); transition: opacity 1s var(--ease), transform 1s var(--ease); }
+  .rv.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .rv { transform: none; transition: opacity .4s ease; } .btn:active { transform: none; } html { scroll-behavior: auto; } }
+
+  nav .lang { padding: 3px 9px; border: 1px solid var(--line); border-radius: 980px; font-size: .75rem; }
+</style>
+</head>
+<body>
+
+<nav>
+  <img src="../media/lucy-logo.png" alt="">
+  <span class="name">Lucy</span>
+  <div class="links">
+    <a class="hide-s" href="#features">Features</a>
+    <a class="hide-s" href="#faq">FAQ</a>
+    <a href="../lucy/press/">Press kit</a>
+    <a class="lang" href="../" hreflang="ru" lang="ru">RU</a>
+  </div>
+</nav>
+
+<main>
+  <header class="hero wrap">
+    <span class="badge">Coming soon to Steam · Early Access</span>
+    <h1 class="rv">Hands full?<br>Just say it.</h1>
+    <p class="lead rv">Lucy is a voice assistant for Windows. She hears you even mid-game, <b>works offline</b> and does what usually takes five windows and a mouse.</p>
+    <div class="btns rv">
+      <a class="btn main" href="#trailer">Watch the trailer</a>
+      <span class="btn off" aria-disabled="true">Wishlist on Steam — soon</span>
+    </div>
+    <div class="film rv" id="trailer">
+      <video controls preload="metadata" playsinline poster="../media/trailer-poster-en.jpg">
+        <source src="../media/lucy-trailer-en.mp4" type="video/mp4">
+      </video>
+    </div>
+  </header>
+
+  <section class="wrap">
+    <p class="eyebrow center rv">Natural speech, not memorized phrases</p>
+    <h2 class="center rv">Say “Lucy” —<br>and it’s done.</h2>
+    <div class="phrases">
+      <div class="phrase rv"><q>“Game volume 30”</q><span>game gets quieter, Discord stays put</span></div>
+      <div class="phrase rv"><q>“Play my favorites”</q><span>your liked songs on Spotify or Yandex Music</span></div>
+      <div class="phrase rv"><q>“Take a screenshot”</q><span>without leaving the game</span></div>
+      <div class="phrase rv"><q>“Open Discord”</q><span>any app or website</span></div>
+      <div class="phrase rv"><q>“Timer for 10 minutes”</q><span>she’ll remind you out loud</span></div>
+      <div class="phrase rv"><q>“What’s the weather tomorrow?”</q><span>a forecast card</span></div>
+    </div>
+  </section>
+
+  <section class="wrap center">
+    <p class="eyebrow rv">Privacy</p>
+    <div class="stat rv">0 bytes</div>
+    <p class="lead rv">of your voice go online. Lucy recognizes her name and your commands <b>right on your PC</b>.</p>
+  </section>
+
+  <section class="wrap" id="features">
+    <div class="feature">
+      <p class="eyebrow rv">For gaming</p>
+      <h2 class="rv">Say “shield” —<br>keys pressed.</h2>
+      <p class="lead rv">Voice macros with a profile for every game. Sound, windows, OBS and Discord — without alt-tabbing.</p>
+      <div class="shot rv"><img src="../media/shot-3-games.jpg" alt="Gaming scenario in Lucy" loading="lazy"></div>
+    </div>
+    <div class="feature">
+      <p class="eyebrow rv">Scenarios</p>
+      <h2 class="rv">Ten actions.<br>One phrase.</h2>
+      <p class="lead rv">Open, wait, press, switch audio, open a link — chain blocks together, no code needed.</p>
+      <div class="shot rv"><img src="../media/shot-4-editor.jpg" alt="Lucy scenario editor" loading="lazy"></div>
+    </div>
+    <div class="feature">
+      <p class="eyebrow rv">Widget</p>
+      <h2 class="rv">Right on your taskbar.</h2>
+      <p class="lead rv">Character, music and volume next to the usual Windows buttons. You choose where it sits.</p>
+      <div class="shot rv"><img src="../media/shot-2-widget.jpg" alt="Lucy widget on the taskbar" loading="lazy"></div>
+    </div>
+    <div class="feature">
+      <p class="eyebrow rv">Character</p>
+      <h2 class="rv">You can see she’s listening.</h2>
+      <p class="lead rv">Reactor, Flower and other looks show when Lucy is listening, thinking and answering.</p>
+      <div class="shot rv"><img src="../media/shot-7-styles.jpg" alt="Lucy character looks" loading="lazy"></div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <h2 class="center rv">And there’s more.</h2>
+    <div class="tiles">
+      <div class="tile rv"><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 1-4.59 18.89L3.6 21.96a1.25 1.25 0 0 1-1.54-1.54l1.06-3.83A10 10 0 0 1 12 2m0 1.5a8.5 8.5 0 0 0-7.43 12.64l.15.27-1.1 3.98 3.98-1.11.27.15A8.5 8.5 0 1 0 12 3.5M8.75 13h4.5a.75.75 0 0 1 .1 1.5h-4.6a.75.75 0 0 1-.1-1.5zh4.5zm0-3.5h6.5a.75.75 0 0 1 .1 1.5h-6.6a.75.75 0 0 1-.1-1.5zh6.5z"/></svg></div>
+        <h3>AI of your choice</h3><p>Cloud models with your own key, or a local AI right on your PC.</p></div>
+      <div class="tile rv"><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1a5 5 0 0 1 5 5v2.01c1.68.13 3 1.53 3 3.24v7.5c0 1.8-1.46 3.25-3.25 3.25h-9.5A3.25 3.25 0 0 1 4 18.75v-7.5a3.25 3.25 0 0 1 3-3.24V6a5 5 0 0 1 5-5M7.25 9.5c-.97 0-1.75.78-1.75 1.75v7.5c0 .97.78 1.75 1.75 1.75h9.5c.97 0 1.75-.78 1.75-1.75v-7.5c0-.97-.78-1.75-1.75-1.75zM12 13.75a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5M12 2.5A3.5 3.5 0 0 0 8.5 6v2h7V6A3.5 3.5 0 0 0 12 2.5"/></svg></div>
+        <h3>Only your voice</h3><p>A friend on Discord or your stream chat can't quit your game.</p></div>
+      <div class="tile rv"><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.7 2.15q.3.23.3.6V16.5a3.5 3.5 0 1 1-1.5-2.87V7.76L10 10.3v8.19a3.5 3.5 0 1 1-1.5-2.87V5.75c0-.33.22-.62.53-.72l10-3a.8.8 0 0 1 .67.12M10 8.75l8.5-2.56V3.76L10 6.3zM6.5 16.5a2 2 0 1 0 0 4 2 2 0 0 0 0-4m8 0a2 2 0 1 0 4 0 2 2 0 0 0-4 0"/></svg></div>
+        <h3>Music by voice</h3><p>Spotify and Yandex Music: “play something upbeat”, “next track”.</p></div>
+      <div class="tile rv"><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.75 2C16.99 2 18 3 18 4.25v15.5c0 1.24-1 2.25-2.25 2.25h-7.5C7.01 22 6 21 6 19.75V4.25C6 3.01 7 2 8.25 2zm0 1.5h-7.5a.75.75 0 0 0-.75.75v15.5c0 .41.34.75.75.75h7.5c.41 0 .75-.34.75-.75V4.25a.75.75 0 0 0-.75-.75m-2.5 14a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1 0-1.5z"/></svg></div>
+        <h3>Phone remote</h3><p>Lucy’s commands and buttons when you’re away from your desk.</p></div>
+      <div class="tile rv"><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.25 17.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5m3.5.5h14.5a.75.75 0 0 1 .1 1.5H6.75a.75.75 0 0 1-.1-1.5zh14.5zm-3.5-7a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5m3.5.5h14.5a.75.75 0 0 1 .1 1.5H6.75a.75.75 0 0 1-.1-1.5zh14.5zm-3.5-7a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5m3.5.5h14.5a.75.75 0 0 1 .1 1.5H6.75a.75.75 0 0 1-.1-1.5zh14.5z"/></svg></div>
+        <h3>Quick commands</h3><p>Any app, folder or website — on a word you pick.</p></div>
+      <div class="tile rv"><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.25 11c.38 0 .7.28.74.65l.01.1v.5a6.75 6.75 0 0 1-6.25 6.73v2.27a.75.75 0 0 1-1.5.1v-2.37A6.75 6.75 0 0 1 5 12.48v-.73a.75.75 0 0 1 1.5-.1v.6a5.25 5.25 0 0 0 5.03 5.25h.72a5.25 5.25 0 0 0 5.25-5.03v-.72c0-.41.34-.75.75-.75M12 2a4 4 0 0 1 4 4v6a4 4 0 0 1-8 0V6a4 4 0 0 1 4-4m0 1.5A2.5 2.5 0 0 0 9.5 6v6a2.5 2.5 0 0 0 5 0V6A2.5 2.5 0 0 0 12 3.5"/></svg></div>
+        <h3>English and Russian</h3><p>Commands, interface and Lucy’s voice in both languages.</p></div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <h2 class="center rv">System requirements</h2>
+    <div class="specs">
+      <div class="spec rv"><h3>Minimum</h3><dl>
+        <dt>OS</dt><dd>Windows 10, 64-bit</dd>
+        <dt>Processor</dt><dd>4 cores</dd>
+        <dt>Memory</dt><dd>4 GB</dd>
+        <dt>Graphics</dt><dd>not required</dd>
+        <dt>Storage</dt><dd>1 GB</dd>
+        <dt>Sound</dt><dd>microphone</dd></dl></div>
+      <div class="spec rv"><h3>Recommended</h3><dl>
+        <dt>OS</dt><dd>Windows 11</dd>
+        <dt>Processor</dt><dd>6 cores</dd>
+        <dt>Memory</dt><dd>8 GB (16 GB for local AI)</dd>
+        <dt>Graphics</dt><dd>4 GB — for local AI</dd>
+        <dt>Storage</dt><dd>3 GB + optional AI models</dd>
+        <dt>Sound</dt><dd>headset</dd></dl></div>
+    </div>
+  </section>
+
+  <section class="wrap" id="faq">
+    <h2 class="center rv">FAQ</h2>
+    <div class="faq rv">
+      <details><summary>Does it need internet?</summary><p>No. Lucy hears her name and your commands on the PC itself. Internet is only needed for cloud AI, weather and music services.</p></details>
+      <details><summary>Which languages?</summary><p>English and Russian: commands, interface and Lucy’s voice. You pick the language on first launch.</p></details>
+      <details><summary>Will it get in the way of games?</summary><p>When it’s quiet, Lucy barely touches the CPU, and the GPU is left to your game by default. For macros in games with anti-cheat, check the game’s rules.</p></details>
+      <details><summary>Where does my data go?</summary><p>Your voice stays on your PC. Details are in the <a href="../privacy/#en">privacy policy</a>.</p></details>
+    </div>
+  </section>
+
+  <section class="cta wrap">
+    <img class="rv" src="../media/lucy-logo.png" alt="Lucy">
+    <h2 class="rv"><span class="grad">Lucy.</span> Coming soon to Steam.</h2>
+    <p class="lead rv">Early Access. Creators and channels — review keys are in the press kit.</p>
+    <div class="btns rv">
+      <a class="btn main" href="../lucy/press/">Press kit</a>
+      <a class="btn link" href="mailto:kiyoco.studio@gmail.com">Contact us ›</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <span>© 2026 Kiyo Co.</span>
+  <a href="mailto:kiyoco.studio@gmail.com">kiyoco.studio@gmail.com</a>
+  <a href="../privacy/#en">Privacy policy</a>
+  <a href="../lucy/press/">Press kit</a>
+  <a href="../" hreflang="ru" lang="ru">Русский</a>
+</footer>
+
+<script>
+  (function () {
+    var els = document.querySelectorAll('.rv');
+    if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; }
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+</script>
+</body>
+</html>
